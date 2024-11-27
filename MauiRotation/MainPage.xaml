@@ -9,44 +9,13 @@
     </ContentPage.BindingContext>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <!-- Left-side input area -->
-        <StackLayout Grid.Column="0" Padding="10" Spacing="10">
-            <Label Text="Width:" />
-            <Label Text="{Binding Width}"/>
-            <Slider Minimum="0" Maximum="1000"
-                    Value="{Binding Width, Mode=TwoWay}" />
-
-            <Label Text="Height:" />
-            <Label Text="{Binding Height}"/>
-            <Slider Minimum="0" Maximum="1000" 
-                    Value="{Binding Height, Mode=TwoWay}" />
-
-            <Label Text="Tilt Angle:" />
-            <Label Text="{Binding TiltAngle}"/>
-            <Slider Minimum="0" Maximum="90"
-                    Value="{Binding TiltAngle, Mode=TwoWay}" />
-
-            <Label Text="Camera Distance:" />
-            <Label Text="{Binding CameraDistance}"/>
-            <Slider Minimum="0" Maximum="2000"
-                    Value="{Binding CameraDistance, Mode=TwoWay}"/>
-
-            <Label Text="AnchorY" />
-            <Label Text="{Binding AnchorYValue, StringFormat='{}{0:F2}'}"/>
-
-            <Slider Minimum="0" Maximum="1" 
-                    Value="{Binding AnchorYValue, Mode=TwoWay}"/>
-
-            <Button Text="Update" Command="{Binding UpdateCommand}" />
-        </StackLayout>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
 
         <!-- Right-side display area -->
-        <AbsoluteLayout Grid.Column="1" BackgroundColor="LightGray">
+        <AbsoluteLayout Grid.Row="0"  BackgroundColor="LightGray">
             <!-- Red rectangle -->
             <AbsoluteLayout x:Name="RedRectangle"
                             WidthRequest="{Binding Width}"
@@ -76,5 +45,41 @@
                           AbsoluteLayout.LayoutFlags="PositionProportional">
             </GraphicsView>
         </AbsoluteLayout>
+
+        <StackLayout Grid.Row="1" Padding="10" Spacing="10" HorizontalOptions="Center">
+            <StackLayout Padding="10" Spacing="10" Orientation="Horizontal">
+                <Label Text="Width:" />
+                <Label Text="{Binding Width, StringFormat='{}{0:F0}'}"/>
+                <Slider Minimum="0" Maximum="1000" WidthRequest="100"
+                        Value="{Binding Width, Mode=TwoWay}" />
+
+                <Label Text="Height:" />
+                <Label Text="{Binding Height, StringFormat='{}{0:F0}'}"/>
+                <Slider Minimum="0" Maximum="1000"  WidthRequest="100"
+                        Value="{Binding Height, Mode=TwoWay}" />
+            </StackLayout>
+
+            <StackLayout Padding="10" Spacing="10" Orientation="Horizontal">
+                <Label Text="Tilt Angle:" />
+                <Label Text="{Binding TiltAngle, StringFormat='{}{0:F0}'}"/>
+                <Slider Minimum="0" Maximum="90" WidthRequest="100"
+                        Value="{Binding TiltAngle, Mode=TwoWay}" />
+
+                <Label Text="AnchorY" />
+                <Label Text="{Binding AnchorYValue, StringFormat='{}{0:F2}'}"/>
+
+                <Slider Minimum="0" Maximum="1"  WidthRequest="100"
+                        Value="{Binding AnchorYValue, Mode=TwoWay}"/>
+            </StackLayout>
+
+            <StackLayout Padding="10" Spacing="10" Orientation="Horizontal">
+                <Label Text="Camera Distance:" />
+                <Label Text="{Binding CameraDistance, StringFormat='{}{0:F0}'}"/>
+                <Slider Minimum="0" Maximum="2000" WidthRequest="100"
+                        Value="{Binding CameraDistance, Mode=TwoWay}"/>
+
+            </StackLayout>
+        </StackLayout>
+
     </Grid>
 </ContentPage>

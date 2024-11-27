@@ -1,9 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using Microsoft.Maui.Graphics;
-using Microsoft.Maui.Controls;
+using System.Runtime.InteropServices;
 
 namespace TrapezoidDemo
 {
@@ -91,20 +88,14 @@ namespace TrapezoidDemo
 
         public TrapezoidDrawable TrapezoidDrawable { get; }
 
-        public ICommand UpdateCommand { get; }
-
         public MainViewModel()
         {
             TrapezoidDrawable = new TrapezoidDrawable(this);
-            UpdateCommand = new Command(() =>
+
+            if (RuntimeInformation.OSDescription.ToUpper().Contains("ANDROID"))
             {
-                // Trigger property change notifications
-                OnPropertyChanged(nameof(Width));
-                OnPropertyChanged(nameof(Height));
-                OnPropertyChanged(nameof(TiltAngle));
-                OnPropertyChanged(nameof(CameraDistance));
-                OnPropertyChanged(nameof(AnchorYValue));
-            });
+                cameraDistance = 220;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
