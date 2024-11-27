@@ -9,7 +9,7 @@ namespace TrapezoidDemo
         private double width = 500;
         private double height = 500;
         private double tiltAngle = 45;
-        private double cameraDistance = 1000;
+        private double cameraDistance = 1000;  // for windows
         private double _anchorYValue = 0.5;
 
         // Stores the three points of the rotated edge
@@ -92,10 +92,12 @@ namespace TrapezoidDemo
         {
             TrapezoidDrawable = new TrapezoidDrawable(this);
 
-            if (RuntimeInformation.OSDescription.ToUpper().Contains("ANDROID"))
-            {
+            if (IsRunningOnAndroid())
                 cameraDistance = 220;
-            }
+            else if (IsRunningOnIOS())
+                cameraDistance = 400;
+            else 
+                cameraDistance = 1000; // for windows
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -111,6 +113,25 @@ namespace TrapezoidDemo
             onChanged?.Invoke();
             OnPropertyChanged(propertyName);
             return true;
+        }
+
+        private static bool? _runningOnAndroid = null;
+        private static bool? _runningOniOS = null;
+        public static bool IsRunningOnAndroid()
+        {
+            // Check if the OS Description contains "Android" - typical for environments like Xamarin
+            if (_runningOnAndroid == null)
+                _runningOnAndroid = RuntimeInformation.OSDescription.ToUpper().Contains("ANDROID");
+            return _runningOnAndroid.Value;
+        }
+
+        public static bool IsRunningOnIOS()
+        {
+            var osDescription = RuntimeInformation.OSDescription.ToLower();
+            //// This is a very rough check and might not be accurate for all iOS environments
+            if (_runningOniOS == null)
+                _runningOniOS = osDescription.Contains("darwin") || osDescription.Contains("ios");
+            return _runningOniOS.Value;
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
