@@ -9,10 +9,11 @@ namespace TrapezoidDemo
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private double width = 1000;
-        private double height = 1000;
+        private double width = 500;
+        private double height = 500;
         private double tiltAngle = 45;
         private double cameraDistance = 1000;
+        private double _anchorYValue = 0.5;
 
         // Stores the three points of the rotated edge
         private Point[] rotatedEdgePoints;
@@ -74,6 +75,20 @@ namespace TrapezoidDemo
             }
         }
 
+        public double AnchorYValue
+        {
+            get => _anchorYValue;
+            set
+            {
+                if (_anchorYValue != value)
+                {
+                    _anchorYValue = value;
+                    OnPropertyChanged(nameof(AnchorYValue));
+                }
+            }
+        }
+
+
         public TrapezoidDrawable TrapezoidDrawable { get; }
 
         public ICommand UpdateCommand { get; }
@@ -88,6 +103,7 @@ namespace TrapezoidDemo
                 OnPropertyChanged(nameof(Height));
                 OnPropertyChanged(nameof(TiltAngle));
                 OnPropertyChanged(nameof(CameraDistance));
+                OnPropertyChanged(nameof(AnchorYValue));
             });
         }
 

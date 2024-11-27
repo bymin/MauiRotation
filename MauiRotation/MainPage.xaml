@@ -17,16 +17,30 @@
         <!-- Left-side input area -->
         <StackLayout Grid.Column="0" Padding="10" Spacing="10">
             <Label Text="Width:" />
-            <Entry Text="{Binding Width, Mode=TwoWay}" Keyboard="Numeric" />
+            <Label Text="{Binding Width}"/>
+            <Slider Minimum="0" Maximum="1000"
+                    Value="{Binding Width, Mode=TwoWay}" />
 
             <Label Text="Height:" />
-            <Entry Text="{Binding Height, Mode=TwoWay}" Keyboard="Numeric" />
+            <Label Text="{Binding Height}"/>
+            <Slider Minimum="0" Maximum="1000" 
+                    Value="{Binding Height, Mode=TwoWay}" />
 
             <Label Text="Tilt Angle:" />
-            <Entry Text="{Binding TiltAngle, Mode=TwoWay}" Keyboard="Numeric" />
+            <Label Text="{Binding TiltAngle}"/>
+            <Slider Minimum="0" Maximum="90"
+                    Value="{Binding TiltAngle, Mode=TwoWay}" />
 
             <Label Text="Camera Distance:" />
-            <Entry Text="{Binding CameraDistance, Mode=TwoWay}" Keyboard="Numeric" />
+            <Label Text="{Binding CameraDistance}"/>
+            <Slider Minimum="0" Maximum="2000"
+                    Value="{Binding CameraDistance, Mode=TwoWay}"/>
+
+            <Label Text="AnchorY" />
+            <Label Text="{Binding AnchorYValue, StringFormat='{}{0:F2}'}"/>
+
+            <Slider Minimum="0" Maximum="1" 
+                    Value="{Binding AnchorYValue, Mode=TwoWay}"/>
 
             <Button Text="Update" Command="{Binding UpdateCommand}" />
         </StackLayout>
@@ -48,7 +62,7 @@
                             HeightRequest="{Binding Height}"
                             BackgroundColor="Green"
                             RotationX="{Binding TiltAngle}"
-                            AnchorY="0.5"
+                            AnchorY="{Binding AnchorYValue}"
                             AbsoluteLayout.LayoutBounds="0.5,0.5"
                             AbsoluteLayout.LayoutFlags="PositionProportional">
             </AbsoluteLayout>
